@@ -1,0 +1,389 @@
+From: <Saved by Microsoft Internet Explorer 5>
+Subject: VB6 Embedded Resource Templates For Dummy's
+Date: Fri, 9 May 2008 22:52:37 -0700
+MIME-Version: 1.0
+Content-Type: text/html;
+	charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: file://D:\VB%20Programming\vb6_embedded_resource_templates.htm
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2800.1106
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><TITLE>VB6 Embedded Resource Templates For Dummy's</TITLE>
+<META http-equiv=3DContent-Language content=3Den-us>
+<META http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Dwindows-1252">
+<META content=3D"MSHTML 6.00.2800.1479" name=3DGENERATOR>
+<META content=3DFrontPage.Editor.Document name=3DProgId></HEAD>
+<BODY>
+<DIV align=3Dcenter>
+<CENTER>
+<TABLE cellSpacing=3D0 cellPadding=3D0 width=3D652 border=3D0>
+  <TBODY>
+  <TR>
+    <TD width=3D650>
+      <DIV align=3Dcenter>
+      <CENTER>
+      <TABLE cellSpacing=3D0 cellPadding=3D0 width=3D"94%" border=3D0>
+        <TBODY>
+        <TR>
+          <TD width=3D"100%">
+            <P align=3Dcenter><FONT face=3DArial size=3D5><B>VB6 =
+Embedded Resource=20
+            Templates For </B></FONT><FONT face=3DArial=20
+            size=3D5><B>Dummies</B></FONT></P></TD></TR>
+        <TR>
+          <TD width=3D"100%">
+            <P align=3Dcenter><FONT face=3DArial size=3D2><B>Ever look =
+at Microsoft's=20
+            Picture and Fax viewer control and wonder just how they =
+pulled it=20
+            off ?<BR>Well then your reading the right document=20
+          !</B></FONT></P></TD></TR></TBODY></TABLE></CENTER></DIV>
+      <HR>
+    </TD></TR>
+  <TR>
+    <TD width=3D650><FONT face=3DArial size=3D2><B>First off their are a =
+lot of ways=20
+      you can pull off a image presentation from the depths of source =
+code. The=20
+      hardest way is to do it programicly considering how hard it is to =
+binary=20
+      decode files. Especially gif's. When you look at a directory thru =
+windows=20
+      file explorer all your doing is viewing it thru a template driven =
+and=20
+      scripted web browser control. In fact even your desktop is a =
+heavily=20
+      scripted web browser control believe it or not. If you don't =
+believe me=20
+      just point eather the VB web browser control or a sub classed copy =
+of=20
+      internet explorer at a file directory and you will find out what I =
+mean.=20
+      Even the explorer right click menu comes into view on right click =
+and you=20
+      can have iconic view.</B></FONT>=20
+      <P><FONT face=3DArial size=3D2><B>A closer look at the file that =
+houses the=20
+      Microsoft Picture viewer using Resource Hacker and behold what do =
+you find=20
+      but a HTML template with insert code here variables all over the =
+place.=20
+      They pulled the same thing off in their Web Photo Album Generator =
+on the=20
+      Windows 98 CD. In fact if you look closely at a lot of the Windows =
+
+      operating system you will find embedded templates being used all =
+over the=20
+      place. Some like the Web Photo Album Generator even use embedded =
+cascading=20
+      style sheets or CSS for short.</B></FONT></P>
+      <P><FONT face=3DArial size=3D2><B>Well I promised to teach you =
+just how they=20
+      are pulling this off. Well in the VB6 GUI you have the VB Resource =
+Editor=20
+      on your toolbar. In the resource editor you have 5 types of =
+resources you=20
+      can add to an embedded resource file. The one furthest to the =
+right is=20
+      Custom. Using the custom resource type you can add literally =
+anything to=20
+      your project. Once you have chosen and added your particular =
+resource it=20
+      assigns each one an index number. Numbers 101, 102, 103 on to =
+infinity.=20
+      This is how you store your HTML templates in your final=20
+      program.</B></FONT></P>
+      <P><FONT face=3DArial size=3D2><B>Now that you know how to store a =
+template=20
+      you need to know how to get it out and view it. Well lets look at =
+some=20
+      simple code to extract a custom string resource and view=20
+it.</B></FONT></P>
+      <P><TEXTAREA name=3DCode rows=3D24 cols=3D78>Input: LoadQuickFeed =
+101, "http://www.sfgate.com/rss/feeds/bondage.xml"
+
+Public Function LoadQuickFeed(DataIndex As Integer, FeedURL As String)
+Dim myArray As String
+Dim TheFile As Integer
+WebBrowser1.Visible =3D True
+myArray =3D ByteArrayToString(LoadResData(DataIndex, "CUSTOM"))
+myArray =3D Replace(myArray, "&lt;&lt;--URL-HERE--&gt;&gt;", FeedURL)
+TheFile =3D FreeFile()
+Open App.Path &amp; "\temp.htm" For Output As #TheFile
+Print #TheFile, myArray
+Close #TheFile
+WebBrowser1.Navigate2 App.Path &amp; "\temp.htm"
+End Function
+
+Private Function ByteArrayToString(bytArray() As Byte) As String
+Dim sAns As String
+Dim iPos As String
+sAns =3D StrConv(bytArray, vbUnicode)
+iPos =3D InStr(sAns, Chr(0))
+If iPos &gt; 0 Then sAns =3D Left(sAns, iPos - 1)
+ByteArrayToString =3D sAns
+End Function
+</TEXTAREA></P>
+      <P><FONT face=3DArial size=3D2><B>In the code above I have a =
+previously coded=20
+      template embedded in my project as resource 101 written in Java =
+Script=20
+      AJAX to display the RSS feed URL passed in the FeedURL variable. =
+The=20
+      template has the </B></FONT><FONT=20
+      face=3DArial><B>&lt;&lt;--URL-HERE--&gt;&gt; <FONT =
+size=3D2>written in the=20
+      place of the feed URL in it. I did that by editing the HTML file =
+with a=20
+      text editor like Note Tab Pro after creating it in Front Page and =
+the=20
+      Windows Scripting Editor.</FONT></B></FONT></P>
+      <P><TEXTAREA name=3DCode2 rows=3D24 cols=3D78>&lt;!DOCTYPE HTML =
+PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;JavaScript RSS Reader&lt;/title&gt;
+&lt;style type=3D"text/css"&gt;
+body{font-family:verdana,arial,helvetica; font-size:10pt}
+td{font-family:verdana,arial,helvetica; font-size:10pt}
+a{color:#003399}
+a:hover{color:#FF9900}
+.ip{width:300px; height:20px; border:#000000 solid 1px}
+.btn{font-family:verdana,arial,helvetica; font-weight:bold; =
+font-size:8pt; background:#CCCCCC; height:20px; border:#000000 solid =
+1px; cursor:hand}
+li{list-style:square; padding:3px}
+&lt;/style&gt;
+&lt;script language=3D"JavaScript"&gt;
+//////////////////////////////////////////////////
+//	&lt;JavaScript RSS Reader&gt;			      //
+// 	(c) 2003 Thomas A. Swift		      //
+//	Written on: 08/18/06 (dd/mm/yy)		//
+// http://www.tas-independent-programming.com/	//
+//////////////////////////////////////////////////
+
+function readRSS()=20
+{
+URI=3D"&lt;&lt;--URL-HERE--&gt;&gt;"
+	if(window.ActiveXObject) {
+		var xmlDoc=3Dnew ActiveXObject("Microsoft.XMLDOM");
+		xmlDoc.onreadystatechange=3Dverify;
+		xmlDoc.async=3Dfalse;
+		while(xmlDoc.readyState!=3D4) document.write('Loading...');
+	}
+	else =
+if(document.implementation&amp;&amp;document.implementation.createDocumen=
+t)
+	xmlDoc=3Ddocument.implementation.createDocument("","doc",null);
+	xmlDoc.load(URI);
+	xmlDoc.validate();
+
+	function verify() {if(xmlDoc.readyState!=3D4) return false;}
+
+	function formatRSS() {
+		var items_count=3DxmlDoc.getElementsByTagName('item').length;
+		var pubDate=3Dnew Array(), date=3Dnew Array, link=3Dnew Array(), =
+title=3Dnew Array(), guid=3Dnew Array(),  description=3Dnew Array(),  =
+image=3Dnew Array();
+           =20
+		for(var i=3D0; i&lt;items_count; i++) {
+			=
+if(xmlDoc.getElementsByTagName('item')[i].getElementsByTagName('pubDate')=
+.length=3D=3D1)
+				=
+pubDate[i]=3DxmlDoc.getElementsByTagName('item')[i].getElementsByTagName(=
+'pubDate')[0];
+			=
+if(xmlDoc.getElementsByTagName('item')[i].getElementsByTagName('dc:date')=
+.length=3D=3D1)
+				=
+date[i]=3DxmlDoc.getElementsByTagName('item')[i].getElementsByTagName('dc=
+:date')[0];
+			=
+if(xmlDoc.getElementsByTagName('item')[i].getElementsByTagName('link').le=
+ngth=3D=3D1)
+				=
+link[i]=3DxmlDoc.getElementsByTagName('item')[i].getElementsByTagName('li=
+nk')[0];
+			=
+if(xmlDoc.getElementsByTagName('item')[i].getElementsByTagName('guid').le=
+ngth=3D=3D1)
+				=
+guid[i]=3DxmlDoc.getElementsByTagName('item')[i].getElementsByTagName('gu=
+id')[0];
+			=
+if(xmlDoc.getElementsByTagName('item')[i].getElementsByTagName('title').l=
+ength=3D=3D1)
+				=
+title[i]=3DxmlDoc.getElementsByTagName('item')[i].getElementsByTagName('t=
+itle')[0];
+			=
+if(xmlDoc.getElementsByTagName('item')[i].getElementsByTagName('descripti=
+on').length=3D=3D1)
+				=
+description[i]=3DxmlDoc.getElementsByTagName('item')[i].getElementsByTagN=
+ame('description')[0];
+			=
+if(xmlDoc.getElementsByTagName('item')[i].getElementsByTagName('image').l=
+ength=3D=3D1)
+				=
+image[i]=3DxmlDoc.getElementsByTagName('item')[i].getElementsByTagName('i=
+mage')[0];
+		}
+           if (title.length&gt;0)
+           {  =20
+		  =
+document.write('&lt;html&gt;&lt;head&gt;&lt;title&gt;'+xmlDoc.getElements=
+ByTagName('title')[0].firstChild.nodeValue+'&lt;/title&gt;');
+		  document.write('&lt;style type=3D"text/css"&gt; .rss-box { margin: =
+1em; background-color: #EEEEEE; border: 1px solid #000000; }.rss-items { =
+margin-top:0px; padding:0.5em; 0.5em; margin-left:0px; color:#000000; } =
+p.rss-title {padding:0.5em;}.rss-title { text-decoration: none; =
+font-family: arial, verdana, sans-serif; font-size: 85%; =
+background-color:#cccccc; color:#000000; font-weight:bold; margin: 0px; =
+padding:0em; text-align: left; }.rss-item  { font-family: arial, =
+verdana, sans-serif; font-size: 0.75em; font-weight : bold; =
+list-style:none; padding-bottom:1em; }.rss-item a { text-decoration: =
+none; color:0000FF; font-size: 105%; font-weight:bold; =
+font-family:arial, sans-serif; }.rss-item a:visited { color:0000FF; =
+}.rss-date { font-size: 85%; font-weight : normal; color:#808080; }a{ =
+text-decoration: none }A:hover {color: #00FF00; font-weight: bold} =
+&lt;/style&gt;');//&lt;&lt;--This is where we place desired compressed =
+style sheeting.
+		  document.write('&lt;base target=3D"_blank"&gt;')
+          document.write('&lt;/head&gt;&lt;body bgcolor=3D"#C0C0C0" =
+link=3D"#0000FF" vlink=3D"#0000FF" alink=3D"#0000FF"&gt;');
+		  document.write('&lt;div class=3D"rss-box"&gt;');
+          document.write('&lt;p class=3D"rss-title"&gt;&lt;a =
+class=3D"rss-title" href=3D"'+ =
+xmlDoc.getElementsByTagName('link')[0].text + '" target=3D"_blank"&gt;' =
++ xmlDoc.getElementsByTagName('title')[0].text + =
+'&lt;/a&gt;&lt;br&gt;&lt;span class=3D"rss-item"&gt;' + =
+xmlDoc.getElementsByTagName('description')[0].text + =
+'&lt;/span&gt;&lt;/p&gt;&lt;ul class=3D"rss-items"&gt;');
+          }
+          else
+          {
+          document.write('&lt;html&gt;&lt;head&gt;');
+		  document.write('&lt;style type=3D"text/css"&gt; .rss-box { margin: =
+1em; background-color: #EEEEEE; border: 1px solid #000000; }.rss-items { =
+margin-top:0px; padding:0.5em; 0.5em; margin-left:0px; color:#000000; } =
+p.rss-title {padding:0.5em;}.rss-title { text-decoration: none; =
+font-family: arial, verdana, sans-serif; font-size: 85%; =
+background-color:#cccccc; color:#000000; font-weight:bold; margin: 0px; =
+padding:0em; text-align: left; }.rss-item  { font-family: arial, =
+verdana, sans-serif; font-size: 0.75em; font-weight : bold; =
+list-style:none; padding-bottom:1em; }.rss-item a { text-decoration: =
+none; color:0000FF; font-size: 105%; font-weight:bold; =
+font-family:arial, sans-serif; }.rss-item a:visited { color:0000FF; =
+}.rss-date { font-size: 85%; font-weight : normal; color:#808080; }a{ =
+text-decoration: none }A:hover {color: #00FF00; font-weight: bold} =
+&lt;/style&gt;');//&lt;&lt;--This is where we place desired compressed =
+style sheeting.
+		  document.write('&lt;base target=3D"_blank"&gt;')
+          document.write('&lt;/head&gt;&lt;body bgcolor=3D"#C0C0C0" =
+link=3D"#0000FF" vlink=3D"#0000FF" alink=3D"#0000FF"&gt;');
+		  document.write('&lt;div class=3D"rss-box"&gt;&lt;p =
+align=3D"center"&gt;&lt;font face=3D"Arial" size=3D"4"&gt;&lt;b&gt;Feed =
+is eather corrupted or temporarily not =
+available.&lt;/b&gt;&lt;/font&gt;&lt;/p&gt;');
+          }
+          var ws=3D/\S/;
+             =20
+		for(var i=3D0; i&lt;items_count; i++) {
+                  var pubDate_w, title_w, link_w;
+			        if(typeof(pubDate[i])!=3D"undefined")
+                   {
+                   =
+pubDate_w=3D(pubDate[i].firstChild.nodeValue.length&gt;0)?pubDate[i].firs=
+tChild.nodeValue:"&lt;i&gt;Date NA&lt;/i&gt;";
+                   }
+                 =20
+			if(document.all)
+				=
+title_w=3D(title.length&gt;0)?title[i].text:"&lt;i&gt;Untitled&lt;/i&gt;"=
+;
+			else
+				=
+title_w=3D(title.length&gt;0)?title[i].firstChild.nodeValue:"&lt;i&gt;Unt=
+itled&lt;/i&gt;";
+
+			if(link.length&gt;0) =
+link_w=3D(link.length&gt;0)?link[i].text:"javascript:void(0)";
+			if(title.length&gt;0) =
+title_w=3D(!ws.test(title_w))?"&lt;i&gt;Untitled&lt;/i&gt;":title_w;
+			if(pubDate.length=3D=3D0) =
+pubDate_w=3D(date.length&gt;0)?date[i].firstChild.nodeValue:"&lt;i&gt;Dat=
+e NA&lt;/i&gt;";
+			document.write('&lt;li class=3D"rss-item"&gt;&lt;a class=3D"rss-item" =
+href=3D"'+link_w+'" =
+target=3D"_blank"&gt;'+title_w+'&lt;/a&gt;&lt;br&gt;');
+			if(pubDate.length&gt;0)
+                   {
+                   document.write('&lt;span =
+class=3D"rss-date"&gt;'+pubDate_w+'&lt;/span&gt;&lt;br&gt;');
+                   }		=09
+                   if(typeof(description[i])!=3D"undefined")
+                   {
+                   document.write(description[i].text);
+                   }
+                   if(typeof(image[i])!=3D"undefined")
+                   {
+                   document.write('&lt;br&gt;&lt;img border=3D"0" =
+src=3D"'+image[i].text+'"&gt;');
+                   }
+                   document.write('&lt;/li&gt;&lt;hr noShade&gt;');
+		}
+		  document.write('&lt;p align=3D"center"&gt;&lt;b&gt;&lt;font =
+face=3D"Arial" size=3D"1" color=3D"#000000"&gt;VB Quickfeed AJAX RSS =
+Feed Reader&lt;br&gt;By &lt;/font&gt;&lt;a =
+href=3D"http://www.tas-independent-programming.com" =
+target=3D"_blank"&gt;&lt;font face=3D"Arial" size=3D"1" =
+color=3D"#000000"&gt;T.A.S. Independent =
+Programming&lt;/font&gt;&lt;/a&gt;&lt;/b&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/p=
+&gt;&lt;/body&gt;&lt;/html&gt;');
+		  document.close
+	}
+
+	if(typeof(xmlDoc)!=3D"undefined") {
+		if(window.ActiveXObject) formatRSS();
+		else xmlDoc.onload=3DformatRSS();
+	}
+}
+
+function checkString() {
+	var loc=3Ddocument.location.href.split("?")
+	if(loc.length&gt;1) {
+		URI=3Dloc[1].split("=3D");
+		if(URI.length&gt;1) {
+			var retURI=3D"";
+			for(var i=3D1; i&lt;URI.length; i++) retURI+=3DURI[i];
+			try {readRSS(unescape(retURI));}
+			catch(e) {}
+		}
+	}
+}
+&lt;/script&gt;
+&lt;script&gt;function =
+viewthesource(){window.location=3D"view-source:"+window.location}&lt;/scr=
+ipt&gt;
+&lt;/head&gt;
+&lt;body onLoad=3D"readRSS();"&gt;
+&lt;/body&gt;
+&lt;/html&gt;</TEXTAREA></P>
+      <P><FONT face=3DArial><B><FONT size=3D2>The code simply replaces =
+the=20
+      </FONT>&lt;&lt;--URL-HERE--&gt;&gt; <FONT size=3D2>with what ever =
+feed URL I=20
+      want to view when its loaded. Presto I have a totally versatile =
+way of=20
+      loading RSS feeds.</FONT></B></FONT></P>
+      <P><FONT face=3DArial size=3D2><B>Well now that you know the =
+secret the=20
+      variables are should we say the sky is the limit ! Have fun =
+expanding on=20
+      this basic shell concept created by Microsoft eons ago ! Enjoy=20
+      !!!</B></FONT></P></TD></TR></TBODY></TABLE></CENTER></DIV>
+<P>&nbsp;</P></BODY></HTML>
